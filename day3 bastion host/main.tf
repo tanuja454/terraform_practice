@@ -16,7 +16,7 @@ resource "aws_vpc" "ammu" {
 resource "aws_subnet" "ammu" {
     cidr_block = "10.0.0.0/24"
     vpc_id = aws_vpc.ammu.id
-    availability_zone = "us-west-1a"
+    availability_zone = "ap-southeast-2a"
     tags = {
       Name="pub-sub"
     }
@@ -92,7 +92,7 @@ cidr_blocks=["0.0.0.0/0"]
 
 #2ndsubnet
 resource "aws_subnet" "babu" {
-    availability_zone = "us-west-1c"
+    availability_zone = "ap-southeast-2b"
     cidr_block = "10.0.1.0/24"
     vpc_id = aws_vpc.ammu.id
   
@@ -140,9 +140,9 @@ resource "aws_eip" "babu" {
 #public instances
 
 resource "aws_instance" "public" {
-ami = "ami-0cf4e1fcfd8494d5b"
+ami = "ami-0146fc9ad419e2cfd"
 instance_type = "t2.micro"
-key_name = "ammu"
+key_name = "sydney11"
 security_groups = [aws_security_group.ammu.id]
 associate_public_ip_address = true
 subnet_id = aws_subnet.ammu.id
@@ -153,9 +153,9 @@ tags = {
 }
 #private instance
 resource "aws_instance" "private" {
-ami = "ami-0cf4e1fcfd8494d5b"
+ami = "ami-0146fc9ad419e2cfd"
 instance_type = "t2.micro"
-key_name = "ammu"
+key_name = "sydney11"
 security_groups = [aws_security_group.ammu.id]
 associate_public_ip_address = false
 subnet_id = aws_subnet.babu.id
